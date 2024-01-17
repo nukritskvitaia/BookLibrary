@@ -1,0 +1,105 @@
+﻿@model IEnumerable<BookLibrary.Models.Book>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Book Library</title>
+    <link rel="stylesheet" href="/lib/bootstrap/dist/css/bootstrap.min.css">
+    <style>
+        body {
+            background: url("/images/Home_Books_Image.jpg") center/cover no-repeat fixed;
+            margin: 0;
+            color: white;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .title-section {
+            position: relative;
+            text-align: center;
+            height: 150px;
+            width: 100%;
+            opacity: 0.7;
+            padding: 50px 0;
+            box-sizing: border-box;
+        }
+
+        .main-text {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            margin-top: 50px;
+        }
+
+        .main {
+            font-size: 50px;
+        }
+
+        .scrolling-container {
+            overflow-x: auto;
+            white-space: nowrap;
+            display: flex; 
+            scroll-snap-type: x mandatory; 
+        }
+
+        .book-box {
+            flex: 0 0 auto; 
+            width: 150px; 
+            margin-right: 10px; 
+            text-align: center;
+            scroll-snap-align: start; 
+            opacity: 0.7; 
+            transition: opacity 0.3s; 
+            position: relative;
+        }
+
+        .book-box:hover {
+            opacity: 1; 
+        }
+
+        .book-box img {
+            max-width: 100%; 
+            height: auto; 
+            cursor: pointer; 
+        }
+        footer{
+            position: fixed;
+        }
+        .navbar-expand-sm .navbar-nav .nav-link{
+            padding-left: 1.5rem;
+            padding-right: 5.5rem;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="title-section">
+        <div class="main-text">
+            <h1 class="main">Book Library</h1>
+            <p>A home for your books</p>
+        </div>
+    </div>
+
+    <div class="container mt-5">
+        <h2>Featured Books</h2>
+        <div class="scrolling-container">
+            @if (Model != null && Model.Any())
+            {
+                @foreach (var book in Model)
+                {
+                    <div class="book-box">
+                <a asp-controller="Home" asp-action="BookDetails" asp-route-title="@book.Title">
+                    <img src="~/images/@(book.Title).jpg" alt="@(book.Title)">
+                </a>
+                    </div>
+                }
+            }
+        </div>
+
+    </div>
+
+</body>
+</html>

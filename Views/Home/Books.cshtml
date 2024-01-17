@@ -1,0 +1,65 @@
+﻿@model IEnumerable<BookLibrary.Models.Book>
+
+<div class="container mt-5">
+    <div class="row">
+        <div class="col-12 mb-4">
+            <div class="text-center">
+                <a href="@Url.Action("AddBook")" class="btn btn-success">Add Book</a>
+            </div>
+        </div>
+
+        @if (Model != null && Model.Any())
+        {
+            @foreach (var book in Model)
+            {
+                <div class="col-md-4 mb-4">
+                    <div class="card">
+                        <div class="aspect-ratio-container">
+                            <a asp-controller="Home" asp-action="BookDetails" asp-route-title="@book.Title">
+                                <img src="~/images/@(book.Title).jpg" class="card-img-top aspect-ratio-content" alt="@book.Title">
+                            </a>
+                        </div>
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-text">Author: @book.Author</p>
+                            <p class="card-text">Year: @book.Year</p>
+                            <p class="card-text">Pages: @book.Pages</p>
+                            <div class="text-center">
+                                <a href="@Url.Action("Edit", new { id = book.Id })" class="btn btn-primary">Edit</a>
+                                <a href="@Url.Action("Delete", new { id = book.Id })" class="btn btn-danger">Delete</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            }
+        }
+        else
+        {
+            <div class="col-12 text-center">
+                <p>No Books</p>
+            </div>
+        }
+    </div>
+</div>
+
+<style>
+    .aspect-ratio-container {
+        position: relative;
+        width: 100%;
+        padding-bottom: 100%;
+        overflow: hidden;
+    }
+
+    .aspect-ratio-content {
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        object-fit: contain;
+    }
+    .card-link {
+        text-decoration: none;
+        color: inherit;
+    }
+</style>
